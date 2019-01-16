@@ -1,7 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
-$this->load->library('session');
-$user_detail = $this->session->userdata('user_data_session');
-?>
+
 <div id="wrapper">
     <div id="page-wrapper">
         <div class="container-fluid">

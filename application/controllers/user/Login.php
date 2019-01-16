@@ -37,7 +37,7 @@ class Login extends CI_Controller{
                 );
                 $this->session->set_userdata('user_data_session',$user_detail);
                 $this->session->set_userdata('logged_in',true);
-                redirect('user/Client');
+                redirect('user/Product_filter');
             }else{
                 /*  $this->session->set_flashdata('login_msg', '<div class="alert alert-danger text-center">Login Failed!! Please try again.</div>');
                    $this->load->view('header');

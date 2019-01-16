@@ -11,10 +11,9 @@ class Product extends CI_Controller{
         $this->load->helper(array('file','url','form'));
         if(!$this->session->userdata('logged_in')){
             redirect('admin/login','refresh');
-        } elseif($this->session->userdata('logged_in') &&$user_detail['user_type'] !='admin' ) {
-                // redirect('user/category/index');
+        } elseif($this->session->userdata('logged_in') &&$user_detail['user_type'] ==='user' ) {
+            // redirect('user/category/index');
             redirect('user/Client', 'refresh');
-
         }
     }
     public function show_product_id(){
@@ -36,7 +35,7 @@ class Product extends CI_Controller{
             if($this->form_validation->run()==true){
                 $info = pathinfo($_FILES['image']['name']);
                 $ext = $info['extension'];
-                $img_path = 'images/products/'.time().'.'.$ext;
+                $img_path = '/Applications/XAMPP/htdocs/Category_Product/images/products/'.time().'.'.$ext;
                 $data['image'] = basename($img_path);
                 if(move_uploaded_file($_FILES['image']['tmp_name'],$img_path)){
                     if($this->db->insert('product',$data)){

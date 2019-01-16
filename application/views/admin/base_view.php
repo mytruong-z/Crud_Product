@@ -2,8 +2,8 @@
 $this->load->library('session');
 $user_detail = $this->session->userdata('user_data_session');
 $name = $user_detail['username'];
-if($user_detail['user_type'] != 'admin'){
-    redirect('user/Client');
+if($user_detail['user_type'] === 'user'){
+    redirect('user/product_filter');
 }
 if($content == 'dashboard') {$this->load->view('admin/home'); $selected = $content;$content='';}
 if($content == 'category') {$this->load->view('admin/category/show_student_id'); $selected = $content;$content='';}
@@ -59,12 +59,13 @@ if($content == 'profile') {$this->load->view('admin/profile'); $selected = $cont
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="<?php echo base_url();?>admin/home">Admin Panel</a>
+            <a class="navbar-brand" href="<?php echo base_url();?>admin/login/login_auth">Admin Panel</a>
         </div>
         <!-- Top Menu Items -->
+
         <ul class="nav navbar-right top-nav">
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?php echo $name;?> <b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i><?php echo $name;?>  <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li>
                         <a href="<?php echo base_url(); ?>profile"><i class="fa fa-fw fa-user"></i> Profile</a>
@@ -77,6 +78,7 @@ if($content == 'profile') {$this->load->view('admin/profile'); $selected = $cont
                         <a href="<?php echo base_url(); ?>admin/Logout/index"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
                     </li>
                 </ul>
+
             </li>
         </ul>
         <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->

@@ -4,6 +4,7 @@ class Category extends CI_Controller
 {
     public function __construct()
     {
+
         parent::__construct();
         $this->load->database();
         $this->load->library('upload');
@@ -12,10 +13,10 @@ class Category extends CI_Controller
         $this->load->helper(array('form', 'file', 'url'));
         $user_detail = $this->session->userdata('user_data_session');
         if (!$this->session->userdata('logged_in')) {
-            redirect('login', 'refresh');
-        }elseif($this->session->userdata('logged_in') && $user_detail['user_type'] !='admin' ) {
+            redirect('admin/login', 'refresh');
+        }elseif($this->session->userdata('logged_in') && $user_detail['user_type'] ==='user' ) {
             // redirect('user/category/index');
-            redirect('login', 'refresh');
+            redirect('user/Client', 'refresh');
         }
     }
 

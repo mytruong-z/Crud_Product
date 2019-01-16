@@ -10,21 +10,14 @@ class Home extends CI_Controller{
         //to protect the controller to be accessed only by registered users
         if(!$this->session->userdata('logged_in')){
             redirect('admin/login','refresh');
-        }elseif($this->session->userdata('logged_in') && $user_detail['user_type'] !='admin' ) {
+        }elseif($this->session->userdata('logged_in') && $user_detail['user_type'] ==='user' ) {
             // redirect('user/category/index');
             redirect('user/Client', 'refresh');
         }
     }
     public function index()
     {
-        $user_detail = $this->session->userdata('user_data_session');
-        if($this->session->userdata('logged_in') && $user_detail['user_type'] !='admin' ) {
-            // redirect('user/category/index');
-            redirect('login', 'refresh');
-        }
-        else{
                 $data['content'] = 'dashboard';
                 $this->load->view('admin/base_view', $data);
-            }
     }
 }

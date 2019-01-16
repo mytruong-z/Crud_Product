@@ -9,9 +9,18 @@
          $this->load->model('client_model');
          $this->load->helper(array('form','file','url'));
          $user_detail = $this->session->userdata('user_data_session');
-         if(!$this->session->userdata('logged_in')){
-             redirect('login','refresh');
-        }
+         if (!$this->session->userdata('logged_in')) {
+             redirect('admin/login', 'refresh');
+         }elseif($this->session->userdata('logged_in') && $user_detail['user_type'] ==='user' ) {
+             // redirect('user/category/index');
+             redirect('user/Client', 'refresh');
+         }
+         /*  if(!$this->session->userdata('logged_in')){
+               redirect('admin/login','refresh');
+          }elseif($this->session->userdata('logged_in') && $user_detail['user_type'] !='admin' ) {
+               // redirect('user/category/index');
+               redirect('user/Client', 'refresh');
+           } */
      }
 
      public function add(){
