@@ -14,11 +14,11 @@ class Product_filter_model extends CI_Model{
     public function fetch_filter_type($type){
         $this->db->distinct();
         $this->db->select($type);
-        $this->db->from('product');
+        $this->db->from('Product');
         return $this->db->get();
     }
    public function make_query($minimum_price,$maximum_price,$brand){
-        $query = "SELECT * FROM product";
+        $query = "SELECT * FROM  product";
         if(isset($minimum_price,$maximum_price) && !empty($minimum_price)&&!empty($maximum_price)){
             $query .= "AND price BETWEN '" .$minimum_price."' AND '".$maximum_price."' ";
         }
@@ -49,12 +49,13 @@ class Product_filter_model extends CI_Model{
                 $output .= '
                     <div class="col-sm-4 col-lg-3 col-md-3">
                      <div style="border:1px solid #ccc; border-radius:5px; padding:16px; margin-bottom:16px; height:300px;">
-                      <img align="center" style="" src="'.base_url().'images/products/'. $row['image'] .'" alt="" height="155px" width="150px" class="" >
+                      <img align="center" style="margin-bottom: 20px" src="'.base_url().'images/products/'. $row['image'] .'" alt="" height="155px" width="150px" class="" >
                       <p align="center"><strong><a href="#">'. $row['name'] .'</a></strong></p>
                       <h4 style="text-align:center;" class="text-danger" >'. $row['price'] .'</h4>
                       <div align="center" class="atc">
                             <a  href="'.base_url().'user/Product_filter/addToCart/'.$row['id'].'" class="btn btn-success">
                                           Add to Cart</a>
+                              
                        </div>
                      </div>
                     </div>

@@ -4,12 +4,15 @@ class Product_filter extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('product_filter_model');
+        $this->load->model('Product_cart');
+        $this->load->library('cart');
     }
     public function index(){
         $data['brand_data'] = $this->product_filter_model->fetch_filter_type_Ca('name');
         $data['product_price'] = $this->product_filter_model->fetch_filter_type('price');
         $this->load->view('user/product_filter',$data);
     }
+
     function fetch_data()
     {
         sleep(1);
@@ -50,8 +53,8 @@ class Product_filter extends CI_Controller{
         );
         echo json_encode($output);
     }
-  /*  public function addToCart($proID){
-        $product = $this->product->getRows($proID);
+   /* public function addToCart($proID){
+        $product = $this->Product_cart->getRows($proID);
         $data = array(
             'id' =>$product['id'],
             'qty'=>1,
@@ -59,9 +62,37 @@ class Product_filter extends CI_Controller{
             'name'=>$product['name'],
             'image'=>$product['image']
         );
-        //$this->cart->insert($data);
-       // set_cookie("cartCookie",$data,time()+86400,"/");
-        redirect('user/cart/');
+
+       // setcookie('cartCookie',$data['name'],time()+86400,"/");
+        $datas['cart'] = array($data);
+
+            $array = serialize($datas);
+            setcookie('cartCookie',$array,time()+86400,"/");
+
+      /*  $array = serialize($data);
+        setcookie('cartCookie',$array,time()+86400,"/");
+       // $array1 = unserialize($_COOKIE['cartCookie']);
+      /*  print_r($array1['id']);
+        die;
+        var_dump(unserialize($_COOKIE['cartCookie']));
+        die;
+       // $this->load->view('cart/index',$array1);
+
+        redirect('user/cart/',$array);
+      //  redirect('user/Product_filter/showCart',$datas);
     } */
+   public function addToCart($proID){
+       $product = $this->Product_cart->getRows($proID);
+       $data = array(
+           'id' => $product['id'],
+           'qty' => 1,
+           'price'=>$product['price'],
+           'name'=>$product['name'],
+           'image'=>$product['image']
+       );
+       $this->cart->insert($data);
+       redirect('user/cart/');
+   }
+
 
 }

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,40 +22,76 @@
     <link href="<?php echo base_url(); ?>bootstrap/style.css" rel="stylesheet">
 </head>
 <style>
+    .search_product {
+        margin-top: 35px;
+    }
     .navbar-fixed-top{
         color: #3c3c3c;
         font-weight: bold;
-        background-color: whitesmoke;
-        margin-bottom: 100px;
+        background-color: #e7e7e7;
     }
+    .navbar{
+        min-height: 10px;
+         }
     .logout_client{
-        margin-top: 15px;
         margin-right: 15px;
         float: right;
         color: #3c3c3c;
     }
+    .cart{
+        float: left;
+        color: #a61717  ;
+    }
+    .row1{
+        margin-top: -50px;
+    }
 </style>
 
 <body>
-<div><nav class="navbar navbar-fixed-top">
-        <div class="navbar-footer">
-            <a class="logout_client" href="<?php echo base_url("user/Logout/index")?>">Logout</a>
-        </div>
-
+<div>
+    <nav id="myNavbar" class="nav navbar navbar-default navbar-fixed-top" role="navigation">
+        <div><a class="logout_client" href="<?php echo base_url("user/Logout/index")?>">Logout</a></div>
     </nav>
+
+        <div class="search_product">
+            <div class="row">
+                <div class="col-lg-4"></div>
+                <div class="col-md-4">
+            <div class="input-group">
+
+                <input type="text" id="myInput" class="form-control" placeholder="Search for...">
+                <span class="input-group-btn">
+                    <button class="btn btn-success" type="button"><span class="glyphicon glyphicon-search"></span> </button>
+                  </span>
+            </div><!-- /input-group -->
+                </div>
+        <div class="col-sm-4 cart">
+            <a href="<?php echo base_url('user/cart'); ?>" class="cart-link cart" title="View Cart">
+                <i style="font-size: xx-large" class=" glyphicon glyphicon-shopping-cart"></i>
+                <span">(<?php echo $this->cart->total_items(); ?>)</span>
+            </a>
+        </div>
+            </div>
+
+        </div>
 </div>
+
 <!-- Page Content -->
 <div class="container">
-    <div class="row">
+    <div>
+
+    </div>
+    <h1 align="center" style="margin-bottom: 45px">All Product of Lines Auto Car</h1>
+
+    <div class="row row1">
         <div class="col-md-3">
-            <br />
-            <br />
+
             <br />
             <div class="list-group">
                 <h3>Price</h3>
                 <input type="hidden" id="hidden_minimum_price" value="0" />
                 <input type="hidden" id="hidden_maximum_price" value="65000" />
-                <p id="price_show">1000 - 65000</p>
+                <p id="price_show">100.000 - 1000.000</p>
                 <div id="price_range"></div>
             </div>
             <div class="list-group">
@@ -75,7 +112,6 @@
         </div>
 
         <div class="col-md-9">
-            <h2 align="center" style="margin-top: 70px">All Product of Lines Auto Car</h2>
             <br />
             <div align="center" id="pagination_link">
 
@@ -112,7 +148,7 @@
             var maximum_price = $('#hidden_maximum_price').val();
             var brand = get_filter('brand');
             $.ajax({
-               url:"<?php echo base_url(); ?>user/product_filter/fetch_data/"+page,
+               url:"<?php echo base_url(); ?>user/Product_filter/fetch_data/"+page,
                 method:"POST",
                 dataType:"JSON",
 
@@ -153,9 +189,9 @@
 
         $('#price_range').slider({
             range:true,
-            min:1000,
-            max:65000,
-            values:[1000,65000],
+            min:100.000,
+            max:1000.000,
+            values:[100.000,1000.000],
             step:500,
             stop:function(event, ui)
             {

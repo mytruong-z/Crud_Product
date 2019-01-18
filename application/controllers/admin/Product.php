@@ -29,7 +29,7 @@ class Product extends CI_Controller{
             $data['name'] = $this->input->post('name');
             $data['category_id'] = $this->input->post('category_id');
             $data['price']=$this->input->post('price');
-            $this->form_validation->set_rules('name','Name Product','required|min_length[3]');
+            $this->form_validation->set_rules('name','Name ProductCart','required|min_length[3]');
             $this->form_validation->set_rules('price','Price','required|numeric');
             $this->form_validation->set_rules('category_id','Category_id','required|numeric');
             if($this->form_validation->run()==true){

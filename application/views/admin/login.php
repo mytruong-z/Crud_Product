@@ -71,7 +71,7 @@
                 <input type="checkbox" value="remember-me"> Remember me
             </label>
         </div>
-        <div class="form-group">
+        <div align="center" class="form-group">
             <input type="submit" name="loginSubmit" class="btn-primary " value="Login"/>
             <?php
             echo '<label class="text-danger">'.$this->session->flashdata
@@ -79,7 +79,6 @@
             ?>
         </div>
     </form>
-    <p class="footInfo"><a href="#">Forgot the password? </a></p>
 </div>
 
 </body>

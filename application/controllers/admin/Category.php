@@ -14,7 +14,7 @@ class Category extends CI_Controller
         $user_detail = $this->session->userdata('user_data_session');
         if (!$this->session->userdata('logged_in')) {
             redirect('admin/login', 'refresh');
-        }elseif($this->session->userdata('logged_in') && $user_detail['user_type'] ==='user' ) {
+        }elseif($this->session->userdata('logged_in') && $user_detail['user_type'] !=='admin' ) {
             // redirect('user/category/index');
             redirect('user/Client', 'refresh');
         }
@@ -69,7 +69,7 @@ class Category extends CI_Controller
         $data['content'] = 'category';
        /* var_dump($id);
         die; */
-        $this->load->view('category/index', $data);
+      $this->load->view('category/index', $data);
     }
     public function update_category_id()
     {

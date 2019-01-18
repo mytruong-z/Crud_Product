@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,7 +33,7 @@
     }
     .thumbnails {
         display: block;
-        padding: 10px 2px 10px 2px;
+        padding: 5px 2px 5px 2px;
         margin-bottom: 20px;
         background-color: #fff;
         border: 1px solid #ddd;
@@ -47,6 +48,8 @@
         background-color: whitesmoke;
     }
     .logout_client{
+        margin-top: 15px;
+        margin-right: 15px;
         float: right;
         color: #3c3c3c;
     }
@@ -86,18 +89,18 @@
         </div>
 
         <div class="col-md-9">
-            <h2 align="center">Product</h2>
-            <br />
             <div align="center" id="pagination_link">
-
                 <div>
-
                     <!-- List all products -->
+                    <h2 align="center" style="margin-top: 55px;margin-bottom: 45px">All Product of Lines Auto Car</h2>
+
                     <div class="row" id="conmar">
-                        <div class="col-lg-12">
+                        <form method="post" action="index" >
+                            <div class="col-lg-12">
                             <?php if(!empty($product)){ foreach($product as $row){ ?>
-                                <div class="col-sm-4 col-lg-4 col-md-4">
+                                <div class="col-sm-4 col-lg-3 col-md-3">
                                     <div class="thumbnails">
+                                        <input name="id"  value="<?php echo $row['id']; ?>">
                                         <img class="img_pro" src="<?php echo base_url('images/products/'.$row['image']); ?>" />
                                         <div class="caption">
 
@@ -108,94 +111,28 @@
                                             <a  href="<?php echo base_url('products/addToCart/'.$row['id']); ?>" class="btn btn-success">
                                                 Add to Cart
                                             </a>
+                                            <input type="submit" name="btnadd" value="add">
                                         </div>
                                     </div>
                                 </div>
+
                             <?php } }else{ ?>
                                 <p>Product(s) not found...</p>
                             <?php } ?>
                         </div>
+                            <input type="submit" value="Check" name="btnCheck">
+                        </form>
                     </div>
                 </div>
             <div class="row filter_data">
-
             </div>
         </div>
     </div>
 
 </div>
 <style>
-    #loading
-    {
-        text-align:center;
-        background: url('<?php echo base_url(); ?>bootstrap/loader.gif') no-repeat center;
-        height: 150px;
-    }
 </style>
 
-<script>
-    $(document).ready(function(){
-
-        filter_data(1);
-
-        function filter_data(page)
-        {
-            $('.filter_data').html('<div id="loading" style="" ></div>');
-            var action = 'fetch_data';
-            var minimum_price = $('#hidden_minimum_price').val();
-            var maximum_price = $('#hidden_maximum_price').val();
-            var brand = get_filter('brand');
-            $.ajax({
-
-                url:"<?php echo base_url(); ?>user/product_filter/fetch_data/"+page,
-                method:"POST",
-                dataType:"JSON",
-                data:{action:action, minimum_price:minimum_price, maximum_price:maximum_price, brand:brand},
-                success:function(data)
-                {
-                    $('.filter_data').html(data.product_list);
-                    $('#pagination_link').html(data.pagination_link);
-                }
-            })
-        }
-
-        function get_filter(class_name)
-        {
-            var filter = [];
-            $('.'+class_name+':checked').each(function(){
-                filter.push($(this).val());
-            });
-            return filter;
-        }
-
-        $(document).on('click', '.pagination li a', function(event){
-            event.preventDefault();
-            var page = $(this).data('ci-pagination-page');
-            filter_data(page);
-        });
-
-        $('.common_selector').click(function(){
-            filter_data(1);
-        });
-
-        $('#price_range').slider({
-            range:true,
-            min:1000,
-            max:6500000,
-            values:[1000,6500000],
-            step:500,
-            stop:function(event, ui)
-            {
-                $('#price_show').html(ui.values[0] + ' - ' + ui.values[1]);
-                $('#hidden_minimum_price').val(ui.values[0]);
-                $('#hidden_maximum_price').val(ui.values[1]);
-                filter_data(1);
-            }
-
-        });
-
-    });
-</script>
 
 </body>
 

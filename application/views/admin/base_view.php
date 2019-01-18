@@ -6,10 +6,10 @@ if($user_detail['user_type'] === 'user'){
     redirect('user/product_filter');
 }
 if($content == 'dashboard') {$this->load->view('admin/home'); $selected = $content;$content='';}
-if($content == 'category') {$this->load->view('admin/category/show_student_id'); $selected = $content;$content='';}
-if($content == 'Product') {$this->load->view('admin/product/show_product_id'); $selected = $content;$content='';}
+if($content == 'Category') {$this->load->view('admin/category/show_student_id'); $selected = $content;$content='';}
+if($content == 'ProductCart') {$this->load->view('admin/product/show_product_id'); $selected = $content;$content='';}
 if($content == 'User') {$this->load->view('admin/user/show_user_id'); $selected = $content;$content='';}
-if($content == 'blank_page1') {$this->load->view('admin/blank_page1'); $selected = $content;$content='';}
+if($content == 'revenue') {$this->load->view('admin/revenue'); $selected = $content;$content='';}
 if($content == 'blank_page2') {$this->load->view('admin/blank_page2'); $selected = $content;$content='';}
 if($content == 'settings') {$this->load->view('admin/settings'); $selected = $content;$content='';}
 if($content == 'profile') {$this->load->view('admin/profile'); $selected = $content;$content='';}
@@ -42,7 +42,11 @@ if($content == 'profile') {$this->load->view('admin/profile'); $selected = $cont
 
     <!-- Custom Fonts
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"  -->
-
+    <style>
+        #foo-bottom{
+            font-family: monospace;
+        }
+    </style>
 </head>
 
 <body>
@@ -59,7 +63,7 @@ if($content == 'profile') {$this->load->view('admin/profile'); $selected = $cont
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="<?php echo base_url();?>admin/login/login_auth">Admin Panel</a>
+            <a class="navbar-brand" href="<?php echo base_url();?>admin/home/index">Admin Panel</a>
         </div>
         <!-- Top Menu Items -->
 
@@ -94,10 +98,10 @@ if($content == 'profile') {$this->load->view('admin/profile'); $selected = $cont
                 if ($selected == 'modules') 	echo '<li class="active" >';
                 else echo '<li>';
                 ?>
-                <a href="<?php echo base_url(); ?>admin/category/show_category_id"><i class="glyphicon glyphicon-th-large"></i> category</a>
+                <a href="<?php echo base_url(); ?>admin/category/show_category_id"><i class="glyphicon glyphicon-th-large"></i> Category</a>
                 </li>
                 <?php
-                if ($selected == 'product') 	echo '<li class="active" >';
+                if ($selected == 'ProductCart') 	echo '<li class="active" >';
                 else echo '<li>';
                 ?>
                 <a href="<?php echo base_url(); ?>admin/product/show_product_id"><i class="glyphicon glyphicon-shopping-cart"></i> Product</a>
@@ -106,16 +110,16 @@ if($content == 'profile') {$this->load->view('admin/profile'); $selected = $cont
                 if ($selected == 'user') 	echo '<li class="active" >';
                 else echo '<li>';
                 ?>
-                <a href="<?php echo base_url(); ?>admin/Crud_user/show_user_id"><i class="glyphicon glyphicon-user"></i> user</a>
+                <a href="<?php echo base_url(); ?>admin/Crud_user/show_user_id"><i class="glyphicon glyphicon-user"></i> User</a>
                 </li>
                 <?php
-                if ($selected == 'blank_page1' || $selected == 'blank_page2') 	echo '<li class="active" >';
+                if ($selected == 'revenue' || $selected == 'blank_page2') 	echo '<li class="active" >';
                 else echo '<li>';
                 ?>
                 <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-file"></i> Blank Page <i class="fa fa-fw fa-caret-down"></i></a>
                 <ul id="demo" class="collapse">
                     <li>
-                        <a href="<?php echo base_url(); ?>blank_page/blank_page1"> Blank Page 1</a>
+                        <a href="<?php echo base_url(); ?>admin/revenue"> Total revenue</a>
                     </li>
                     <li>
                         <a href="<?php echo base_url(); ?>blank_page/blank_page2"> Blank Page 2</a>
@@ -127,12 +131,12 @@ if($content == 'profile') {$this->load->view('admin/profile'); $selected = $cont
         <!-- /.navbar-collapse -->
     </nav>
 
-    <div id="foo-bottom">
-            2019 ExplicitPHP. PHP is Easy.
-        </a>
-    </div>
 
 </div>
+<div id="foo-bottom">
+    <p>2019 cars.com</p>
+</div>
+
 
 <!-- jQuery -->
 <script src="<?php echo base_url();?>assets4/js/jquery.js"></script>

@@ -8,10 +8,6 @@ class Login extends CI_Controller{
         $this->load->model('Login_auth_db');
      // print_r($this->session->userdata('user_data_session'));
        // die;
-        /* if (isset($this->session->userdata['logged_in'])) {
-
-             header("location: http://localhost/Product/Home");
-                 } */
     }
     public function index(){
         $this->load->view('admin/login');

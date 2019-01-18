@@ -74,8 +74,6 @@
 
 
 </style>
-
-
 <body>
 <div><nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="navbar-header">
