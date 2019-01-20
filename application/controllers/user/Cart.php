@@ -9,6 +9,9 @@ class Cart extends CI_Controller{
         $this->load->model('Product_cart');
         $this->load->library('form_validation');
         $this->load->helper(array('form','url'));
+        if (!$this->session->userdata('logged_in')) {
+            redirect('user/login', 'refresh');
+        }
     }
     /*public function index(){
       /*  var_dump($array1);

@@ -13,7 +13,7 @@
              redirect('admin/login', 'refresh');
          }elseif($this->session->userdata('logged_in') && $user_detail['user_type'] !=='admin' ) {
              // redirect('user/category/index');
-             redirect('user/Client', 'refresh');
+             redirect('user/Product_filter', 'refresh');
          }
          /*  if(!$this->session->userdata('logged_in')){
                redirect('admin/login','refresh');

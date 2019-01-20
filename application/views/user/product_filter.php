@@ -1,4 +1,8 @@
-
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
+$this->load->library('session');
+$user_detail = $this->session->userdata('user_data_session');
+$name = $user_detail['username'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,7 +14,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Product Filters in Codeigniter using Ajax</title>
+    <title>Product Filters Car</title>
 
     <!-- Bootstrap Core CSS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
@@ -23,16 +27,15 @@
 </head>
 <style>
     .search_product {
-        margin-top: 35px;
+        margin-top: 45px;
     }
     .navbar-fixed-top{
         color: #3c3c3c;
-        font-weight: bold;
         background-color: #e7e7e7;
     }
     .navbar{
         min-height: 10px;
-         }
+    }
     .logout_client{
         margin-right: 15px;
         float: right;
@@ -45,25 +48,81 @@
     .row1{
         margin-top: -50px;
     }
+    .brand{
+        display: none;
+    }
+    .brands{
+        margin-right: 10px;
+    }
+    .brand_hover:hover{
+        background-color: #5cb85c;
+        color: whitesmoke;
+    }
+    .price{
+        width: 70px;
+        height: 30px;
+        color:  #404040;;
+        border-radius: 3px;
+        border: 1px solid #ddd;
+        margin-right: 3px;
+    }
+    .btnPrice{
+        padding: 4px 8px 4px 8px;
+    }
+    .sort{
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+    .btnPriceDown{
+        margin-left: 10px;
+    }
+    .btnPriceUp{
+        margin-right: 10px;
+    }
+    .glyphicon-transfer{
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+    .log_out{
+        padding-bottom: 2px;
+        padding-top: 2px;
+        color: black;
+        font-family: monospace;
+    }
+    .dropdown-menu{
+        border-radius: 3px;
+        padding: 5px 10px;
+    }
 </style>
 
 <body>
 <div>
-    <nav id="myNavbar" class="nav navbar navbar-default navbar-fixed-top" role="navigation">
-        <div><a class="logout_client" href="<?php echo base_url("user/Logout/index")?>">Logout</a></div>
+    <nav class="navbar navbar-fixed-top log_out" role="navigation">
+        <ul class="">
+            <li class="dropdown logout_client ">
+                <a class="log_out"  href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i><?php echo $name;?>  <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <div><a href="<?php echo base_url("user/Logout/index")?>">Logout</a></div>
+                    </li>
+                </ul>
+
+            </li>
+        </ul>
     </nav>
 
         <div class="search_product">
             <div class="row">
                 <div class="col-lg-4"></div>
                 <div class="col-md-4">
+                    <form method="post">
             <div class="input-group">
-
-                <input type="text" id="myInput" class="form-control" placeholder="Search for...">
+                <input type="text" name="search" id="myInput" class="form-control" placeholder="Search for...">
                 <span class="input-group-btn">
-                    <button class="btn btn-success" type="button"><span class="glyphicon glyphicon-search"></span> </button>
+                    <button class="btn btn-success" name="btnSearch" type="submit"><span class="glyphicon glyphicon-search"></span> </button>
                   </span>
             </div><!-- /input-group -->
+                    </form>
                 </div>
         <div class="col-sm-4 cart">
             <a href="<?php echo base_url('user/cart'); ?>" class="cart-link cart" title="View Cart">
@@ -88,22 +147,36 @@
 
             <br />
             <div class="list-group">
+             <form method="post">
                 <h3>Price</h3>
-                <input type="hidden" id="hidden_minimum_price" value="0" />
-                <input type="hidden" id="hidden_maximum_price" value="65000" />
-                <p id="price_show">100.000 - 1000.000</p>
-                <div id="price_range"></div>
+                 <div class="input-group sort">
+                     <button class="btn btn-primary btnPriceUp" name="btnPriceUp" type="submit"><span class="glyphicon glyphicon-sort-by-order"></span> </button>
+                     <span class="glyphicon glyphicon-transfer"></span>
+                     <button class="btn btn-danger btnPriceDown" name="btnPriceDown" type="submit"><span class="glyphicon glyphicon-sort-by-order-alt"></span> </button>
+                 </div>
+                <div class="input-group">
+                <input class="price" type="number" name="priceMin" placeholder="min" value="" />-
+                <input class="price" type="number" placeholder="max" name="priceMax" value="" />
+                    <button class="btn btn-success btnPrice" name="btnPrice" type="submit"><span class="glyphicon glyphicon-play"></span> </button>
+                </div>
+
+
+             </form>
             </div>
-            <div class="list-group">
+            <div class="list-group ">
                 <h3>Brand</h3>
+                <div class="list-group-item checkbox brand_hover">
+                <label style="font-weight: bold"><button class="brands" onclick="reload()" type="submit" name="brand_all"></button><input name="brand" type="text" class="common_selector brand" value="all">All Product</label>
+                </div>
                 <?php
                 foreach($brand_data->result_array() as $row)
                 {
                     ?>
-
-                    <div class="list-group-item checkbox">
-                        <label><input name="brand" type="checkbox" class="common_selector brand" value="<?php echo $row['name']; ?>"  > <?php echo $row['name']; ?></label>
+                    <form method="post">
+                    <div class="list-group-item checkbox brand_hover">
+                        <label><button class="brands" type="submit" name="brands"></button><input name="brand" type="text" class="common_selector brand" value="<?php echo $row['name']; ?>"><?php echo $row['name']; ?></label>
                     </div>
+                    </form>
                     <?php
                 }
                 ?>
@@ -120,98 +193,33 @@
             <br />
             <br />
             <div class="row filter_data">
+               <? foreach($product as $row)
+                { ?>
+                <div class="col-sm-4 col-lg-3 col-md-3">
+                    <div style="border:1px solid #ccc; border-radius:5px; padding:16px; margin-bottom:16px; height:300px;">
+                        <img align="center" style="margin-bottom: 20px" src="<?php echo  base_url()?>images/products/<?php echo  $row['image'];?>" alt="" height="155px" width="150px" class="" >
+                        <p align="center"><strong><a href="#"><?php echo  $row['name'];?></a></strong></p>
+                        <h4 style="text-align:center;" class="text-danger" ><?php echo  $row['price'];?></h4>
+                        <div align="center" class="atc">
+                            <a  href="<?php echo base_url()?>user/Product_filter/addToCart/<?php echo  $row['id'];?>" class="btn btn-success">
+                                Add to Cart</a>
+                        </div>
+                    </div>
+                </div>
 
+               <?php } ?>
             </div>
         </div>
     </div>
 
 </div>
-<style>
-    #loading
-    {
-        text-align:center;
-        background: url('<?php echo base_url(); ?>bootstrap/loader.gif') no-repeat center;
-        height: 150px;
-    }
-</style>
-
 <script>
-    $(document).ready(function(){
+    function reload() {
+        window.location.assign('<?php echo base_url()?>user/Product_filter');//load page again
 
-        filter_data(1);
-
-       function filter_data(page)
-        {
-            $('.filter_data').html('<div id="loading" style="" ></div>');
-            var action = 'fetch_data';
-            var minimum_price = $('#hidden_minimum_price').val();
-            var maximum_price = $('#hidden_maximum_price').val();
-            var brand = get_filter('brand');
-            $.ajax({
-               url:"<?php echo base_url(); ?>user/Product_filter/fetch_data/"+page,
-                method:"POST",
-                dataType:"JSON",
-
-                data:{action:action, minimum_price:minimum_price, maximum_price:maximum_price, brand:brand,
-                    '<?php echo $this->security->get_csrf_token_name(); ?>' : '<?php echo $this->security->get_csrf_hash(); ?>',
-                },
-
-                success:function(data)
-                {
-                    $('.filter_data').html(data.product_list);
-                    $('#pagination_link').html(data.pagination_link);
-                },
-                error: function(jqXHR, status, err){
-                    alert(jqXHR.responseText);
-                }
-
-            });
-        }
-
-        function get_filter(class_name)
-        {
-            var filter = [];
-            $('.'+class_name+':checked').each(function(){
-                filter.push($(this).val());
-            });
-            return filter;
-        }
-
-        $(document).on('click', '.pagination li a', function(event){
-            event.preventDefault();
-            var page = $(this).data('ci-pagination-page');
-            filter_data(page);
-        });
-
-        $('.common_selector').click(function(){
-            filter_data(1);
-        });
-
-        $('#price_range').slider({
-            range:true,
-            min:100.000,
-            max:1000.000,
-            values:[100.000,1000.000],
-            step:500,
-            stop:function(event, ui)
-            {
-                $('#price_show').html(ui.values[0] + ' - ' + ui.values[1]);
-                $('#hidden_minimum_price').val(ui.values[0]);
-                $('#hidden_maximum_price').val(ui.values[1]);
-                filter_data(1);
-            }
-
-        });
-       /* $.ajaxSetup({
-            beforeSend: function(xhr, settings) {
-                if (settings.data.indexOf('csrf_test_name') === -1) {
-                    settings.data += '&csrf_test_name=' + encodeURIComponent(cookies.get('csrf_cookie_name'));
-                }
-            }
-        }); */
-
-    });
+    }
 </script>
+
 
 </body>
 

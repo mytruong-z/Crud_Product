@@ -1,11 +1,4 @@
 
-<head>
-    <link href="<?php echo base_url(); ?>assets4/css/style.css" rel='stylesheet' type='text/css' />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-</head>
 <style>
     #hide{
         display: none;
@@ -26,6 +19,7 @@
     }
 </style>
 <div id="wrapper">
+
     <div id="page-wrapper">
     <h2>Total Revenue</h2>
     <table class="table table-hover">

@@ -1,8 +1,13 @@
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
+$this->load->library('session');
+$user_detail = $this->session->userdata('user_data_session');
+$name = $user_detail['username'];
+?>
 <!DOCTYPE html>
 <html>
 <head>
     <base href="<?php echo 'BASE_URL';?>">
-    <title>Cart</title>
+    <title>Success</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="<?php echo base_url("bootstrap/css/bootstrap.css"); ?>" />
     <link rel="stylesheet" type="text/css" href="<?php echo base_url("bootstrap/css/bootstrap.min.css"); ?>">
@@ -16,6 +21,11 @@
     }
     .navbar{
         min-height: 8px;
+    }
+    .navbar-fixed-top{
+        color: #3c3c3c;
+        font-weight: bold;
+        background-color: whitesmoke;
     }
     .logout_client{
         margin-right: 15px;
@@ -48,15 +58,15 @@
         margin-right: 0px;
     }
     .container{
-        margin-top: 15px;
+        margin-top: 45px;
         margin-bottom: 40px;
     }
     .hdr{
         font-weight: bold;
     }
     #mySidenav a {
-        margin-top: 21px;
-        position: absolute;
+        margin-top: 25px;
+        position: fixed;
         left: -80px;
         transition: 0.3s;
         padding: 10px;
@@ -82,15 +92,40 @@
     body{
         font-family: monospace;
     }
+    .log_out{
+        padding-bottom: 2px;
+        padding-top: 2px;
+        color: black;
+        font-family: monospace;
+    }
+    .dropdown-menu{
+        border-radius: 3px;
+        padding: 5px 10px;
+    }
+    .dropdown-menu{
+        border-radius: 3px;
+        padding: 5px 10px;
+    }
+
 
 </style>
 <body>
-<<div>
+<div>
     <div id="mySidenav" class="sidenav">
         <a id="cancel" href="<?=base_url()?>user/Product_filter">Cancel</a>
     </div>
-    <nav id="myNavbar" class="nav navbar navbar-default navbar-fixed-top" role="navigation">
-        <div><a class="logout_client" href="<?php echo base_url("user/Logout/index")?>">Logout</a></div>
+    <nav class="navbar navbar-fixed-top log_out" role="navigation">
+        <ul class="">
+            <li class="dropdown logout_client ">
+                <a class="log_out"  href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i><?php echo $name;?>  <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <div><a href="<?php echo base_url("user/Logout/index")?>">Logout</a></div>
+                    </li>
+                </ul>
+
+            </li>
+        </ul>
     </nav>
 </div>
 <div class="container">

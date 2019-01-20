@@ -43,7 +43,8 @@ class Login extends CI_Controller{
                 /*print_r($_SESSION);
                 print_r($this->session->userdata('user_data_session'));
                 die;*/
-              $this->load->view('admin/base_view',$data_to_view);
+              //$this->load->view('admin/base_view',$data_to_view);
+                redirect('admin/Home',$data_to_view);
 
             }else{
              /*  $this->session->set_flashdata('login_msg', '<div class="alert alert-danger text-center">Login Failed!! Please try again.</div>');

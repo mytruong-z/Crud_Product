@@ -9,11 +9,11 @@ class Product extends CI_Controller{
         $this->load->model("product_model");
         $user_detail = $this->session->userdata('user_data_session');
         $this->load->helper(array('file','url','form'));
-        if(!$this->session->userdata('logged_in')){
-            redirect('admin/login','refresh');
-        } elseif($this->session->userdata('logged_in') &&$user_detail['user_type'] ==='user' ) {
+        if (!$this->session->userdata('logged_in')) {
+            redirect('admin/login', 'refresh');
+        }elseif($this->session->userdata('logged_in') && $user_detail['user_type'] !=='admin' ) {
             // redirect('user/category/index');
-            redirect('user/Client', 'refresh');
+            redirect('user/Product_filter', 'refresh');
         }
     }
     public function show_product_id(){

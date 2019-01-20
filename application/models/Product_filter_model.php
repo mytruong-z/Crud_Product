@@ -17,20 +17,25 @@ class Product_filter_model extends CI_Model{
         $this->db->from('Product');
         return $this->db->get();
     }
-   public function make_query($minimum_price,$maximum_price,$brand){
-        $query = "SELECT * FROM  product";
-        if(isset($minimum_price,$maximum_price) && !empty($minimum_price)&&!empty($maximum_price)){
-            $query .= "AND price BETWEN '" .$minimum_price."' AND '".$maximum_price."' ";
-        }
+    public  function make_query($minimum_price, $maximum_price, $brand)
+    {
+        $query = "  SELECT * FROM product ";
 
-        if(isset($brand)){
-            $brand_filter = implode(" ',' ",$brand);
-            $query .= "AND name IN('".$brand_filter."'')";
-        }
+        if(isset($minimum_price, $maximum_price) && !empty($minimum_price) &&  !empty($maximum_price))
+        {
+            $query .= "  AND price BETWEEN '".$minimum_price."' AND '".$maximum_price."'";}
+
+        if(isset($brand))
+        {
+            $brand_filter = implode("','", $brand);
+            $query .= "AND name IN('".$brand_filter."') ";}
+
         return $query;
     }
-    public function count_all($minimum_price,$maximum_price,$brand){
-        $query = $this->make_query($minimum_price,$maximum_price,$brand);
+
+    function count_all($minimum_price, $maximum_price, $brand)
+    {
+        $query = $this->make_query($minimum_price, $maximum_price, $brand);
         $data = $this->db->query($query);
         return $data->num_rows();
     }
@@ -55,6 +60,7 @@ class Product_filter_model extends CI_Model{
                       <div align="center" class="atc">
                             <a  href="'.base_url().'user/Product_filter/addToCart/'.$row['id'].'" class="btn btn-success">
                                           Add to Cart</a>
+       
                               
                        </div>
                      </div>

@@ -8,6 +8,9 @@ class Checkout extends CI_Controller{
         $this->load->helper('form');
         $this->load->model('Product_cart');
         $this->controller = 'checkout';
+        if (!$this->session->userdata('logged_in')) {
+            redirect('user/login', 'refresh');
+        }
     }
     function index(){
         if($this->cart->total_items() <=0){
