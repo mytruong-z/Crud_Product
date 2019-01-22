@@ -18,10 +18,9 @@
         font-weight: bold;
     }
     .table{
-        margin-top: 50px;
+        margin-top: 10px;
     }
     .add {
-
         float:right;
         margin-top:10px;
     }
@@ -70,12 +69,15 @@
         text-align: center;
         margin-top: 10px;
     }
-
-
-
+    .input_search{
+        margin-top: 10px;
+        width: 20%;
+    }
+    .input-group .form-control:first-child{
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
 </style>
-
-
 <body>
 <div><nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="navbar-header">
@@ -84,7 +86,6 @@
         <div><h2 style="text-align: center" class="h2_style">Users</h2></div>
     </nav>
 </div>
-
 <div class="container">
 
     <div id="detail">
@@ -128,7 +129,14 @@
     <div id="add">
         <a class="bold" href = "<?=base_url()?>admin/Crud_user/add"><button class="add btn-success">Add User</button></a>
     </div>
-
+    <form method="get" action="<?php echo base_url("admin/Crud_user/show_user_id") ?>">
+        <div class="input-group input_search">
+            <input type="text" name="search" id="myInput" class="form-control" placeholder="Search for...">
+            <span class="input-group-btn">
+                <button class="btn btn-success" name="btnSearch" type="submit"><span class="glyphicon glyphicon-search"></span> </button>
+            </span>
+        </div>
+    </form>
     <table class="table" border="0">
         <tr class="danger">
             <td class="bold" id="hide">Id</td>
@@ -149,7 +157,6 @@
                 <td><?php echo $value["last_name"];?></td>
                 <td><?php echo $value["user_type"];?></td>
                 <td><?php echo $value["password"];?></td>
-
                 <td>
                     <a id="edit" href="<?=base_url()?>admin/Crud_user/show_user_id/<?php echo $value["id"];?>""><button class="btn-primary">Edit</button></a>
                     <a href="<?=base_url()?>admin/Crud_user/delete/<?php echo $value["id"];?>""><button class="btn-danger">Delete</button></a>
@@ -159,6 +166,5 @@
         <?php } ?>
     </table>
 </div>
-
 </body>
 </html>

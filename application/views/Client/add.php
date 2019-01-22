@@ -78,49 +78,66 @@
     }
 </style>
 <body>
-
 <div id="mySidenav" class="sidenav">
     <a id="cancel" class="cancel" href="<?=base_url()?>admin/Crud_user/show_user_id">Cancel</a>
 </div>
 <div class="container">
-
     <div style="text-align: center"><h2>Add User</h2></div>
-    <form action="add" method="post" enctype="multipart/form-data">
+    <form action="add" style="margin-left: 50px" method="post" enctype="multipart/form-data">
         <table>
             <tr>
                 <td></td>
                 <td><span style="color: red;"><?php echo validation_errors(); ?></span></td>
             </tr>
             <tr>
-                <td>Username</td>
-                <td><input type="text" name="username">
+                <td>
+                    <div class="form-group">
+                        <label class="control-label" for="fname"><i class="glyphicon glyphicon-hand-right"></i> Username</label>
+                        <input type="text" name="username">
+                    </div>
                 </td>
             </tr>
             <tr>
-                <td>Email</td>
-                <td><input type="text" name="email">
+                <td>
+                    <div class="form-group">
+                        <label class="control-label" for="fname"><i class="glyphicon glyphicon-hand-right"></i> Email</label>
+                    <input type="text" name="email">
+                    </div>
                 </td>
             </tr>
             <tr>
-                <td>First Name</td>
-                <td><input type="text" name="first_name">
+                <td>
+                    <div class="form-group">
+                        <label class="control-label" for="fname"><i class="glyphicon glyphicon-hand-right"></i> First Name</label>
+                    <input type="text" name="first_name">
+                    </div>
                 </td>
             </tr>
             <tr>
-                <td>Last Name</td>
-                <td><input type="text" name="last_name">
+                <td>
+                    <div class="form-group">
+                    <label class="control-label" for="fname"><i class="glyphicon glyphicon-hand-right"></i> Last Name</label>
+                    <input type="text" name="last_name">
+                    </div>
                 </td>
             </tr>
             <tr>
-                <td>User_type</td>
-                <td><input type="text" name="user_type">
+                <td><div class="form-group">
+                        <label class="control-label" for="fname"><i class="glyphicon glyphicon-hand-right"></i> User type</label>
+                        <select name="user_type" class="form-control">
+                            <option>user</option>
+                            <option>admin</option>
+                        </select>
+                        <br>
+                    </div>
                 </td>
             </tr>
             <tr>
-                <td>Password</td>
-                <td><input type="password" name="password">
+                <div class="form-group">
+                 <td><label class="control-label" for="fname"><i class="glyphicon glyphicon-hand-right"></i> Password</label>
+                <input type="password" name="password">
                 </td>
-            </tr>
+                </div>
             <tr>
                 <td></td>
                 <td><input type="submit" name="btnadd" value="Add"></td>

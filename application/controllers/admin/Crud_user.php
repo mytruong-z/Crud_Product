@@ -26,7 +26,7 @@
      public function add(){
          if($this->input->post("btnadd")){
              $data['username'] = $this->input->post("username");
-             $data['email'] = $this->input->post("username");
+             $data['email'] = $this->input->post("email");
              $data['last_name'] = $this->input->post("last_name");
              $data['first_name'] = $this->input->post("first_name");
              $data['user_type'] = $this->input->post("user_type");
@@ -46,7 +46,14 @@
      public function show_user_id(){
          $this->load->helper(array('form','file','url'));
           $id = $this->uri->segment(4);
-         $data['client'] = $this->client_model->getList();
+         $btnSubmit = $this->input->get('btnSearch');
+         if(isset($btnSubmit)){
+             $info = $this->input->get('search');
+             $data['client'] = $this->client_model->getListSearch($info);
+         }else {
+             $data['client'] = $this->client_model->getList();
+         }
+
          $data['single_client'] = $this->client_model->show_user_id($id);
          $data['content'] = 'user';
          $this->load->view('client/index',$data);

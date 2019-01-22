@@ -17,9 +17,14 @@ class Product extends CI_Controller{
         }
     }
     public function show_product_id(){
-        $id = $this->uri->segment(4);
-        $data['product'] = $this->product_model->getList();
-        $data['single_product'] = $this->product_model->show_product_id($id);
+        $id = $this->uri->segment(4); //lay id hien tai
+        $btnSubmit = $this->input->get('btnSearch');
+        if(isset($btnSubmit)){
+            $info = $this->input->get('search');
+            $data['product'] = $this->product_model->getListSearch($info);
+        }else {
+            $data['product'] = $this->product_model->getList();
+        }
         $data['content'] = 'modules';
         $this->load->view('product/index',$data);
     }
@@ -51,13 +56,14 @@ class Product extends CI_Controller{
         }
         $this->load->view('product/add',$data2);
     }
-    public function update_product_id(){
-        $id = $this->input->post('id');
-        $image_now = $this->input->post('name_image');
-        if($this->input->post('dsubmit')){
-            $data['name'] = $this->input->post('name');
-            $data['category_id'] = $this->input->post('category_id');
-            $data['price'] = $this->input->post('price');
+    public function update_product(){
+        $id = $this->input->get('id');
+        $idp = $this->uri->segment(4);
+        $image_now = $this->input->get('name_image');
+        if($this->input->get('dsubmit')){
+            $data['name'] = $this->input->get('name');
+            $data['category_id'] = $this->input->get('category_id');
+            $data['price'] = $this->input->get('price');
             if(isset($_FILES['image']['tmp_name'])&& !empty($_FILES['image']['tmp_name'])){
                 $info = pathinfo($_FILES['image']['name']);
                 $ext = $info['extension'];
@@ -70,6 +76,13 @@ class Product extends CI_Controller{
             $this->product_model->update_product_id($id,$data);
             redirect('admin/product/show_product_id');
         }
+        $data['single_product'] = $this->product_model->show_product_id($idp);
+        foreach ($data['single_product'] as $key => $n){
+            $name = $n->name;
+        }
+        $name1 = explode(" ",$name);
+        $data['product'] = $this->product_model->getListSearch($name1[0]);
+        $this->load->view('product/update',$data);
     }
     public function delete_product($id){
         $image = $this->db->get_where('product',array('id'=> $id))->row()->image;

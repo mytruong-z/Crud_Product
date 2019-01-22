@@ -29,6 +29,15 @@ class Product_model extends CI_Model{
         return $result;
 
     }
+    public function getListSearch($info){
+        $this->db->select('*');
+        $this->db->from('Product');
+        $this->db->like('name',$info);
+        $query = $this->db->get();
+        $result = $query->result();
+        $result1 = json_decode(json_encode($result), True);
+        return $result1;
+    }
     public function getPrice($data1,$data2){
         $this->db->select('*');
         $this->db->from('Product');

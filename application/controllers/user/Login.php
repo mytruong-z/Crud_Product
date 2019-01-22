@@ -7,11 +7,12 @@ class Login extends CI_Controller{
         $this->load->library('form_validation');
         $this->load->model('Login_auth_db');
         $this->load->library('session');
-    }
-    public function index(){
         if ($this->session->has_userdata['logged_in']) {
             header('Location: http://cars.com/user/Product_filter');
         }
+    }
+    public function index(){
+
         $this->load->view('user/login_Client');
     }
     public function login_auth(){

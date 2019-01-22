@@ -14,14 +14,17 @@
         width: 80%;
         margin-top: 100px;
     }
+    .input_search{
+        margin-top: 10px;
+        width: 20%;
+    }
     .bold{
         font-weight: bold;
     }
     .table{
-        margin-top: 50px;
+        margin-top: 10px;
     }
     .add {
-
         float:right;
         margin-top:10px;
     }
@@ -70,6 +73,10 @@
         text-align: center;
         margin-top: 10px;
     }
+    .input-group .form-control:first-child{
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
 
 
 
@@ -84,6 +91,7 @@
 </div>
 
 <div class="container">
+
 
     <div id="detail">
         <?php foreach ($single_category as $cate) {?>
@@ -114,6 +122,14 @@
         <a class="bold" href = "<?=base_url()?>admin/category/add"><button class="add btn-success">Add Category</button></a>
     </div>
 
+    <form method="get" action="<?php echo base_url("admin/Category/show_category_id") ?>">
+        <div class="input-group input_search">
+            <input type="text" name="search" id="myInput" class="form-control" placeholder="Search for...">
+            <span class="input-group-btn">
+                <button class="btn btn-success" name="btnSearch" type="submit"><span class="glyphicon glyphicon-search"></span> </button>
+            </span>
+        </div><!-- /input-group -->
+    </form>
     <table class="table" border="0">
         <tr class="danger">
             <td class="bold" id="hide">Id</td>

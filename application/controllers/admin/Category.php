@@ -64,7 +64,13 @@ class Category extends CI_Controller
     public function show_category_id()
     {
         $id = $this->uri->segment(4); //lay id hien tai
-        $data['category'] = $this->category_model->getList();
+        $btnSubmit = $this->input->get('btnSearch');
+        if(isset($btnSubmit)){
+            $info = $this->input->get('search');
+            $data['category'] = $this->category_model->getListSearch($info);
+        }else {
+            $data['category'] = $this->category_model->getList();
+        }
         $data['single_category'] = $this->category_model->show_category_id($id);
         $data['content'] = 'category';
        /* var_dump($id);

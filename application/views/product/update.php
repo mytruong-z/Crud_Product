@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,20 +21,22 @@
     .table{
         margin-top: 10px;
     }
-    .add {
-        float:right;
-        margin-top:10px;
-    }
-    .input_search{
-        margin-top: 10px;
-        width: 20%;
-    }
-    .input-group .form-control:first-child{
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
-    }
     #hide{
         display: none;
+    }
+    .editbtn{
+        background-color: #d58512;
+        color: white;
+    }
+    .form-but {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        margin-top: 6px;
+        margin-bottom: 10px;
+        resize: vertical;
     }
     input[type=submit] {
         background-color: #4CAF50;
@@ -42,6 +45,21 @@
         border: none;
         border-radius: 4px;
         cursor: pointer;
+    }
+    #detail{
+        width: 30%;
+    }
+    .border-form{
+        border-style: dashed;
+        border-width: 5px;
+        border-color: #2cc36b;
+        padding: 15px;
+    }
+    .glyphicon-remove{
+        float: right;
+        color: #a61717;
+        z-index: 1;
+        font-size: xx-large;
     }
     .h2_style{
         color: white;
@@ -58,17 +76,40 @@
             <div><h2 style="text-align: center" class="h2_style">Products</h2></div>
         </nav>
     </div>
-    <div id="add">
-        <a class="bold" href = "<?=base_url()?>admin/product/add"><button class="add btn-success">Add Product</button></a>
+
+    <div id="detail">
+        <!-- Fetching All Details of Selected Student From Database And Showing In a Form -->
+        <?php foreach ($single_product as $prod) {?>
+            <form method="get" class="border-form" action="<?php echo base_url() . "admin/product/update_product"?>" enctype="multipart/form-data">
+                <a id="cancel"  class="cancel" href="<?php echo base_url()."admin/product/show_product_id"?>"><span  class="glyphicon glyphicon-remove"></span></a>
+
+                <div class="form-group"><label id="hide">Id :</label>
+                    <input type="text" class="form-but" id="hide" name="id" value="<?php echo $prod->id; ?>">
+                </div>
+                <div class="form-group">
+                    <label>Category_id :</label>
+                    <input type="text" class="form-but" name="category_id" value="<?php echo $prod->category_id; ?>">
+                </div>
+                <div class="form-group">
+                    <label>Name :</label>
+                    <input type="text" class="form-but" name="name" value="<?php echo $prod->name; ?>">
+                </div>
+                <div class="form-group">
+                    <label>Price :</label>
+                    <input type="text" class="form-but" name="price" value="<?php echo $prod->price; ?>">
+                </div>
+
+                <div class="form-group">
+                    <label>Image :</label>
+                    <input type="file" name="image" value="<?php echo $prod->image; ?>">
+                    <input  id="hide" type="text" name="name_image" value="<?php echo $prod->image; ?>">
+                    <p><img src="<?=base_url()?>images/products/<?php echo $prod->image;?>" class="img-thumbnail" alt="Cinque Terre" width="100px" height="100px" >
+                    </p>
+                </div>
+                <input class="editbtn" type="submit" id="submit" name="dsubmit" value="Update">
+            </form>
+        <?php } ?>
     </div>
-    <form method="get" action="<?php echo base_url("admin/Product/show_product_id") ?>">
-        <div class="input-group input_search">
-            <input type="text" name="search" id="myInput" class="form-control" placeholder="Search for...">
-            <span class="input-group-btn">
-                <button class="btn btn-success" name="btnSearch" type="submit"><span class="glyphicon glyphicon-search"></span> </button>
-            </span>
-        </div>
-    </form>
     <table class="table" border="0">
         <tr class="danger">
             <td id="hide" class="bold">Id</td>

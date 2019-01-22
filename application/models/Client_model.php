@@ -16,4 +16,13 @@ class Client_model extends CI_Model{
         $this->db->where('id',$id);
         $this->db->update('users',$data);
     }
+    public function getListSearch($info){
+        $this->db->select('*');
+        $this->db->from('users');
+        $this->db->like('username',$info);
+        $query = $this->db->get();
+        $result1 = $query->result();
+        $result = json_decode(json_encode($result1), True);
+        return $result;
+    }
 }
