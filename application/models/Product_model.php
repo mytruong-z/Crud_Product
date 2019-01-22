@@ -54,4 +54,22 @@ class Product_model extends CI_Model{
         $result = $query->result();
         return $result;
     }
+    public function getBrandPrice($data3){
+        $this->db->select('*');
+        $this->db->from('Product');
+        $like_statements = array();
+        foreach($data3 as $value) {
+            $like_statements[] = "name LIKE '%" . $value . "%'";
+        }
+        $like_string = "(" . implode(' OR ', $like_statements) . ")";
+     //   $array = array('price <' => $data2, 'price >' => $data1,$like_string);
+        $this->db->where($like_string);
+        $query = $this->db->get();
+        $result = $query->result();
+        $result2 = json_decode(json_encode($result), True);
+        return $result2;
+
+
+
+    }
 }

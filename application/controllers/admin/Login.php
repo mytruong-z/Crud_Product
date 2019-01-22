@@ -6,8 +6,9 @@ class Login extends CI_Controller{
         $this->load->helper(array('form','url','file'));
         $this->load->library('form_validation');
         $this->load->model('Login_auth_db');
-     // print_r($this->session->userdata('user_data_session'));
-       // die;
+        if ($this->session->has_userdata['logged_in']) {
+            header('Location: http://cars.com/admin/home');
+        }
     }
     public function index(){
         $this->load->view('admin/login');

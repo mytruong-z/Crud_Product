@@ -7,19 +7,17 @@ class Login extends CI_Controller{
         $this->load->library('form_validation');
         $this->load->model('Login_auth_db');
         $this->load->library('session');
-        /* if (isset($this->session->userdata['logged_in'])) {
-
-             header("location: http://localhost/Product/Home");
-                 } */
     }
     public function index(){
+        if ($this->session->has_userdata['logged_in']) {
+            header('Location: http://cars.com/user/Product_filter');
+        }
         $this->load->view('user/login_Client');
     }
     public function login_auth(){
         $data = new stdClass();
         $this->load->library('form_validation');
         $this->load->library('session');
-
         $this->form_validation->set_rules('email','Email','required');
         $this->form_validation->set_rules('password','Password','required');
         if($this->form_validation->run() == false){
@@ -39,16 +37,9 @@ class Login extends CI_Controller{
                 $this->session->set_userdata('logged_in',true);
                 redirect('user/Product_filter');
             }else{
-                /*  $this->session->set_flashdata('login_msg', '<div class="alert alert-danger text-center">Login Failed!! Please try again.</div>');
-                   $this->load->view('header');
-                   $this->load->view('admin/login');
-                   $this->load->view('footer'); */
                 $data->error = 'Wrong email or password.';
-                // send error to the view
                 $this->load->view('user/login_Client', $data);
-
             }
         }
-
     }
 }
